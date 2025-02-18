@@ -1,17 +1,19 @@
 <script setup>
-import { onMounted } from "vue";
+import { inject, onMounted } from "vue";
 import Loader from "@/components/UComponents/Loader.vue";
 import { useBookStore } from "@/store/book";
 
 const store = useBookStore();
+const toast = inject("toast");
 
 onMounted(async () => {
     await store.getBooks();
+    toast.success("Это тестовое уведомление!");
 });
 </script>
 
 <template>
-    <div class="p-6 bg-gray-100 min-h-screen">
+    <div class="p-6 bg-gray-300 grow">
         <h1 class="text-3xl font-bold text-center text-blue-800 mb-6">
             Книжкова полиця
         </h1>
@@ -26,7 +28,7 @@ onMounted(async () => {
         <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-lg">
             <div
                 v-if="store.loading"
-                class="flex justify-center items-center h-16"
+                class="flex justify-center items-center h-32"
             >
                 <Loader w="32px" h="32px" bw="3px" />
             </div>
