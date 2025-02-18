@@ -11,7 +11,6 @@ onMounted(async () => {
         "http://localhost:3000/books",
         [],
         (response) => {
-            console.log(response);
             books.value = response;
         },
         (errorResponse) => {
@@ -63,10 +62,10 @@ onMounted(async () => {
 ul {
     list-style-type: none;
     padding: 0;
-}
 
-li {
-    border-left: 4px solid #3b82f6; /* Синяя полоса слева */
-    padding-left: 1rem;
+    li {
+        border-left: 4px solid #3b82f6;
+        padding-left: 1rem;
+    }
 }
 </style>

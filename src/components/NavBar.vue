@@ -12,14 +12,16 @@
 nav {
     padding: 1rem;
     background-color: #f0f0f0;
-}
-nav a {
-    margin: 0 0.5rem;
-    text-decoration: none;
-    color: #333;
-}
-nav a.router-link-exact-active {
-    color: #42b983;
-    font-weight: bold;
+
+    a {
+        margin: 0 0.5rem;
+        text-decoration: none;
+        color: #333;
+
+        &.router-link-exact-active {
+            color: #42b983;
+            font-weight: bold;
+        }
+    }
 }
 </style>
