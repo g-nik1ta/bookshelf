@@ -1,22 +1,12 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import useRequest from "@/composable/useRequest";
+import { onMounted } from "vue";
 import Loader from "@/components/UComponents/Loader.vue";
+import { useBookStore } from "@/store/book";
 
-const request = useRequest();
-const books = ref([]);
+const store = useBookStore();
 
 onMounted(async () => {
-    await request.get(
-        "http://localhost:3000/books",
-        [],
-        (response) => {
-            books.value = response;
-        },
-        (errorResponse) => {
-            console.error("Помилка при отриманні книг:", errorResponse);
-        }
-    );
+    await store.getBooks();
 });
 </script>
 
@@ -35,14 +25,14 @@ onMounted(async () => {
         </nav>
         <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-lg">
             <div
-                v-if="request.loading.value"
-                class="flex justify-center items-center h-32"
+                v-if="store.loading"
+                class="flex justify-center items-center h-16"
             >
                 <Loader w="32px" h="32px" bw="3px" />
             </div>
             <ul v-else class="space-y-4">
                 <li
-                    v-for="book in books"
+                    v-for="book in store.state"
                     :key="book.id"
                     class="p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
                 >
