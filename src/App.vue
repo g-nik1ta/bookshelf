@@ -1,5 +1,13 @@
 <script setup>
 import NavBar from "./components/NavBar.vue";
+import { onMounted } from "vue";
+import { useBookStore } from "@/store/book";
+
+const store = useBookStore();
+
+onMounted(async () => {
+    await store.getBooks();
+});
 </script>
 
 <template>

@@ -1,15 +1,8 @@
 <script setup>
-import { inject, onMounted } from "vue";
 import Loader from "@/components/UComponents/Loader.vue";
 import { useBookStore } from "@/store/book";
 
 const store = useBookStore();
-const toast = inject("toast");
-
-onMounted(async () => {
-    await store.getBooks();
-    toast.success("Это тестовое уведомление!");
-});
 </script>
 
 <template>

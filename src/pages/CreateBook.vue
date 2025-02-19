@@ -1,15 +1,28 @@
 <script setup>
-import { ref } from "vue";
+import { useBookStore } from "@/store/book";
+import { inject, ref } from "vue";
+
+const toast = inject("toast");
+const store = useBookStore();
 
 const book = ref({
+    id: "2cbd",
     title: "",
     author: "",
     year: "",
     description: "",
 });
 
-const submitForm = () => {
-    console.log("Додано нову книгу:", book.value);
+const submitForm = async () => {
+    if (store.loading) return;
+    console.log("form:", book.value);
+    await store.createBook(book.value)
+        .then(() => {
+            toast.success("Додано нову книгу!");
+        })
+        .catch((error = null) => {
+            toast.error(error ?? "Виникла помилка!");
+        })
 };
 </script>
 
