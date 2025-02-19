@@ -20,6 +20,10 @@ defineProps({
         type: String,
         default: "",
     },
+    readOnly: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 const value = defineModel({
@@ -36,8 +40,9 @@ const value = defineModel({
         >
             {{ label }}
         </label>
+        <p v-if="readOnly" class="mt-1 text-lg text-gray-900">{{ value }}</p>
         <textarea
-            v-if="type === 'textarea'"
+            v-else-if="type === 'textarea'"
             :id="id"
             v-model="value"
             rows="4"
