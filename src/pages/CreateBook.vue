@@ -21,6 +21,12 @@ const submitForm = async () => {
         .createBook(book.value)
         .then(() => {
             toast.success("Додано нову книгу!");
+            book.value = {
+                title: "",
+                author: "",
+                year: "",
+                description: "",
+            };
         })
         .catch((error = null) => {
             toast.error(error ?? "Виникла помилка!");
@@ -69,7 +75,12 @@ const submitForm = async () => {
                         class="w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors"
                     >
                         <div v-if="store.loading">
-                            <loader w="24px" h="24px" bw="3px" borderColor="#FFF" />
+                            <loader
+                                w="24px"
+                                h="24px"
+                                bw="3px"
+                                borderColor="#FFF"
+                            />
                         </div>
                         <span v-else>Додати книгу</span>
                     </button>

@@ -9,6 +9,7 @@
     "serve": "npx json-server db.json"
   },
   "dependencies": {
+    "@mdi/font": "^7.4.47",
     "autoprefixer": "^10",
     "axios": "^1.7.9",
     "core-js": "^3.8.3",

@@ -20,20 +20,6 @@
       "author": "Автор 3",
       "year": 2023,
       "description": "Опис книги 3"
-    },
-    {
-      "id": "eb3c",
-      "title": "asd",
-      "author": "asd",
-      "year": 12,
-      "description": "asd"
-    },
-    {
-      "id": "ee54",
-      "title": "test name",
-      "author": "Nikita",
-      "year": 2022,
-      "description": "asdkasld"
     }
   ]
 }

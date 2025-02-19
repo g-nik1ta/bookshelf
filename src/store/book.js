@@ -5,6 +5,7 @@ import { ref } from "vue";
 const API = {
     get: 'http://localhost:3000/books',
     post: 'http://localhost:3000/books',
+    delete: 'http://localhost:3000/books',
 }
 
 // const wait = () => {
@@ -39,7 +40,7 @@ export const useBookStore = defineStore("book", () => {
     const createBook = async (data) => {
         const existingBook = state.value.find((book) => book.id === data.id);
         if (existingBook) {
-            throw 'Книжка з таким ID вже існує.' 
+            throw 'Книжка з таким ID вже існує.'
         }
 
         loading.value = true
@@ -57,10 +58,27 @@ export const useBookStore = defineStore("book", () => {
         );
     }
 
+    const deleteBook = async (bookId) => {
+        loading.value = true
+        return await request.destroy(
+            `${API.delete}/${bookId}`,
+            {},
+            (response) => {
+                state.value = state.value.filter(item => item.id !== response.id)
+                loading.value = false
+            },
+            (response) => {
+                console.log("error: ", response);
+                loading.value = false
+            }
+        );
+    }
+
     return {
         state,
         loading,
         getBooks,
-        createBook
+        createBook,
+        deleteBook
     }
 })

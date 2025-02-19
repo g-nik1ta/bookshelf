@@ -1,4 +1,5 @@
 <script setup>
+import BookItem from "@/components/BookItem.vue";
 import Loader from "@/components/UComponents/Loader.vue";
 import { useBookStore } from "@/store/book";
 
@@ -26,18 +27,11 @@ const store = useBookStore();
                 <loader w="32px" h="32px" bw="3px" />
             </div>
             <ul v-else class="space-y-4">
-                <li
+                <book-item
                     v-for="book in store.state"
                     :key="book.id"
-                    class="p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
-                >
-                    <h2 class="text-xl font-semibold text-gray-800">
-                        {{ book.title }}
-                    </h2>
-                    <p class="text-gray-600">
-                        {{ book.author }} ({{ book.year }})
-                    </p>
-                </li>
+                    :book="book"
+                />
             </ul>
         </div>
     </div>
