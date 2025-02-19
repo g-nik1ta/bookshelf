@@ -1,4 +1,6 @@
 <script setup>
+import Loader from "@/components/UComponents/Loader.vue";
+import UInput from "@/components/UComponents/UInput.vue";
 import { useBookStore } from "@/store/book";
 import { inject, ref } from "vue";
 
@@ -6,7 +8,6 @@ const toast = inject("toast");
 const store = useBookStore();
 
 const book = ref({
-    id: "2cbd",
     title: "",
     author: "",
     year: "",
@@ -15,14 +16,15 @@ const book = ref({
 
 const submitForm = async () => {
     if (store.loading) return;
-    console.log("form:", book.value);
-    await store.createBook(book.value)
+
+    await store
+        .createBook(book.value)
         .then(() => {
             toast.success("Додано нову книгу!");
         })
         .catch((error = null) => {
             toast.error(error ?? "Виникла помилка!");
-        })
+        });
 };
 </script>
 
@@ -34,76 +36,42 @@ const submitForm = async () => {
             </h1>
 
             <form @submit.prevent="submitForm" class="space-y-6">
-                <div>
-                    <label
-                        for="title"
-                        class="block text-sm font-medium text-gray-700"
-                        >Назва книги</label
-                    >
-                    <input
-                        type="text"
-                        id="title"
-                        v-model="book.title"
-                        class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                        placeholder="Введіть назву книги"
-                        required
-                    />
-                </div>
-
-                <div>
-                    <label
-                        for="author"
-                        class="block text-sm font-medium text-gray-700"
-                        >Автор</label
-                    >
-                    <input
-                        type="text"
-                        id="author"
-                        v-model="book.author"
-                        class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                        placeholder="Введіть автора"
-                        required
-                    />
-                </div>
-
-                <div>
-                    <label
-                        for="year"
-                        class="block text-sm font-medium text-gray-700"
-                        >Рік видання</label
-                    >
-                    <input
-                        type="number"
-                        id="year"
-                        v-model="book.year"
-                        class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                        placeholder="Введіть рік видання"
-                        required
-                    />
-                </div>
-
-                <div>
-                    <label
-                        for="description"
-                        class="block text-sm font-medium text-gray-700"
-                        >Опис</label
-                    >
-                    <textarea
-                        id="description"
-                        v-model="book.description"
-                        rows="4"
-                        class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                        placeholder="Введіть опис книги"
-                        required
-                    ></textarea>
-                </div>
+                <u-input
+                    id="title"
+                    placeholder="Введіть назву книги"
+                    v-model="book.title"
+                    label="Назва книги"
+                />
+                <u-input
+                    id="author"
+                    placeholder="Введіть автора"
+                    v-model="book.author"
+                    label="Автор"
+                />
+                <u-input
+                    id="textarea"
+                    placeholder="Введіть рік видання"
+                    v-model="book.year"
+                    label="Рік"
+                    type="number"
+                />
+                <u-input
+                    id="description"
+                    placeholder="Введіть опис книги"
+                    v-model="book.description"
+                    label="Опис"
+                    type="textarea"
+                />
 
                 <div>
                     <button
                         type="submit"
                         class="w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors"
                     >
-                        Додати книгу
+                        <div v-if="store.loading">
+                            <loader w="24px" h="24px" bw="3px" borderColor="#FFF" />
+                        </div>
+                        <span v-else>Додати книгу</span>
                     </button>
                 </div>
             </form>

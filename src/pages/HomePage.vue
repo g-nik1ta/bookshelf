@@ -23,7 +23,7 @@ const store = useBookStore();
                 v-if="store.loading"
                 class="flex justify-center items-center h-32"
             >
-                <Loader w="32px" h="32px" bw="3px" />
+                <loader w="32px" h="32px" bw="3px" />
             </div>
             <ul v-else class="space-y-4">
                 <li

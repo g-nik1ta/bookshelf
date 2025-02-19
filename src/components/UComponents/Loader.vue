@@ -12,6 +12,10 @@ defineProps({
         type: String,
         default: "5px",
     },
+    borderColor: {
+        type: String,
+        default: "#000000",
+    },
 });
 </script>
 
@@ -19,7 +23,12 @@ defineProps({
     <div class="loader_wrapper">
         <div
             class="loader"
-            :style="{ width: w, height: h, borderWidth: bw }"
+            :style="{
+                width: w,
+                height: h,
+                borderWidth: bw,
+                borderColor: borderColor,
+            }"
         ></div>
     </div>
 </template>
@@ -31,7 +40,7 @@ defineProps({
     border-width: 5px;
     border-style: solid;
     border-color: #000000;
-    border-bottom-color: transparent;
+    border-bottom-color: transparent !important;
     border-radius: 50%;
     display: inline-block;
     box-sizing: border-box;
