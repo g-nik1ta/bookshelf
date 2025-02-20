@@ -5,6 +5,7 @@ import { ref } from "vue";
 const API = {
     get: 'http://localhost:3000/books',
     post: 'http://localhost:3000/books',
+    put: 'http://localhost:3000/books',
     delete: 'http://localhost:3000/books',
 }
 
@@ -58,6 +59,24 @@ export const useBookStore = defineStore("book", () => {
         );
     }
 
+    const updateBook = async (data) => {
+        loading.value = true
+        return await request.put(
+            `${API.put}/${data.id}`,
+            data,
+            (response) => {
+                console.log(response);
+
+                // state.value = [...state.value, response]
+                loading.value = false
+            },
+            (response) => {
+                console.log("error: ", response);
+                loading.value = false
+            }
+        );
+    }
+
     const deleteBook = async (bookId) => {
         loading.value = true
         return await request.destroy(
@@ -79,6 +98,7 @@ export const useBookStore = defineStore("book", () => {
         loading,
         getBooks,
         createBook,
+        updateBook,
         deleteBook
     }
 })

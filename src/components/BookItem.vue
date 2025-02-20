@@ -31,8 +31,12 @@ const confirmRemove = async (item) => {
         });
 };
 
-const handleContainerClick = () => {
+const detailBookRoute = () => {
     router.push(`/book/${props.book.id}`);
+};
+
+const editBookRoute = () => {
+    router.push(`/edit-book/${props.book.id}`);
 };
 </script>
 
@@ -47,12 +51,13 @@ const handleContainerClick = () => {
         <div class="actions">
             <action-button
                 v-if="!remove"
-                @click="handleContainerClick"
+                @click="detailBookRoute"
                 icon="dots-horizontal"
                 title="Деталі книги"
             />
             <action-button
                 v-if="!remove"
+                @click="editBookRoute"
                 icon="pencil-outline"
                 title="Редагувати"
             />
