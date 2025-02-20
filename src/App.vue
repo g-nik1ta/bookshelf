@@ -11,10 +11,10 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="main_layout">
+    <main class="main_layout">
         <NavBar />
         <router-view />
-    </div>
+    </main>
 </template>
 
 <style lang='scss' scoped>

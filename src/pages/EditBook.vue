@@ -3,6 +3,8 @@ import { useRoute } from "vue-router";
 import { useBookStore } from "@/store/book";
 import BookForm from "@/components/BookForm.vue";
 import { inject, ref, watch } from "vue";
+import PageWrapper from "@/components/PageWrapper.vue";
+import ToHome from "@/components/ToHome.vue";
 
 const route = useRoute();
 const toast = inject("toast");
@@ -13,7 +15,7 @@ const book = ref(null);
 
 const submitForm = async () => {
     if (store.loading) return;
-    
+
     await store
         .updateBook(book.value)
         .then(() => {
@@ -31,38 +33,28 @@ watch(
             book.value = store.state.find((b) => b.id === bookId);
         }
     },
+    { immediate: true }
 );
 </script>
 
 <template>
-    <div class="min-h-screen bg-gray-100 py-8">
-        <div class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-lg">
-            <h1 class="text-3xl font-bold text-gray-800 mb-6">
-                Оновити дані про книгу
-            </h1>
+    <page-wrapper title="Оновити дані про книгу">
+        <form @submit.prevent="submitForm" class="space-y-6">
+            <book-form v-if="book" v-model="book" />
 
-            <form @submit.prevent="submitForm" class="space-y-6">
-                <book-form v-if="book" v-model="book" />
-
-                <button
-                    type="submit"
-                    class="w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors"
-                >
-                    <div v-if="store.loading">
-                        <loader w="24px" h="24px" bw="3px" borderColor="#FFF" />
-                    </div>
-                    <span v-else>Оновити</span>
-                </button>
-            </form>
-
-            <router-link
-                to="/"
-                class="mt-6 inline-block text-blue-500 hover:text-blue-600 transition-colors"
+            <button
+                type="submit"
+                class="w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors"
             >
-                На головну
-            </router-link>
-        </div>
-    </div>
+                <div v-if="store.loading">
+                    <loader w="24px" h="24px" bw="3px" borderColor="#FFF" />
+                </div>
+                <span v-else>Оновити</span>
+            </button>
+        </form>
+
+        <to-home />
+    </page-wrapper>
 </template>
 
 <style lang='scss' scoped>

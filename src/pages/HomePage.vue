@@ -7,18 +7,18 @@ const store = useBookStore();
 </script>
 
 <template>
-    <div class="p-6 bg-gray-300 grow">
+    <section class="p-6 bg-gray-300 grow">
         <h1 class="text-3xl font-bold text-center text-blue-800 mb-6">
             Книжкова полиця
         </h1>
-        <nav class="text-center mb-8">
+        <div class="text-center mb-8">
             <router-link
                 to="/add-book"
                 class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors"
             >
                 Додати книгу
             </router-link>
-        </nav>
+        </div>
         <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-lg">
             <div
                 v-if="store.loading"
@@ -34,7 +34,7 @@ const store = useBookStore();
                 />
             </ul>
         </div>
-    </div>
+    </section>
 </template>
 
 <style lang='scss' scoped>
