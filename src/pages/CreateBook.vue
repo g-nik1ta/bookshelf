@@ -4,16 +4,19 @@ import PageWrapper from "@/components/PageWrapper.vue";
 import ToHome from "@/components/ToHome.vue";
 import Loader from "@/components/UComponents/Loader.vue";
 import { useBookStore } from "@/store/book";
+import { useAuthStore } from "@/store/user";
 import { inject, ref } from "vue";
 
 const toast = inject("toast");
 const store = useBookStore();
+const authStore = useAuthStore()
 
 const book = ref({
     title: "",
     author: "",
     year: "",
     description: "",
+    user_id: authStore.state?.id
 });
 
 const submitForm = async () => {
@@ -28,6 +31,7 @@ const submitForm = async () => {
                 author: "",
                 year: "",
                 description: "",
+                user_id: authStore.state?.id
             };
         })
         .catch((error = null) => {

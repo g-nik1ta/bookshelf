@@ -1,6 +1,7 @@
 import useRequest from "@/composable/useRequest";
 import { defineStore } from "pinia";
 import { ref } from "vue";
+import { useBookStore } from "./book";
 
 const API = {
     get: 'http://localhost:3000/users',
@@ -9,6 +10,7 @@ const API = {
 
 export const useAuthStore = defineStore("user", () => {
     const request = useRequest();
+    const bookStore = useBookStore()
 
     const loading = ref(false)
     const state = ref(null)
@@ -51,7 +53,7 @@ export const useAuthStore = defineStore("user", () => {
         return await request.get(
             `${API.get}?username=${name}&password=${password}`,
             [],
-            (response) => {
+            async (response) => {
                 if (!response || response.length < 1) {
                     loading.value = false
                     throw 'Дані не вірні, перевірте Ім\'я та Пароль'
@@ -60,6 +62,7 @@ export const useAuthStore = defineStore("user", () => {
                 state.value = user;
                 localStorage.setItem('authToken', user.id);
                 isAuthenticated.value = true;
+                await bookStore.getBooks();
                 loading.value = false
             },
             (response) => {
@@ -77,7 +80,7 @@ export const useAuthStore = defineStore("user", () => {
             (response) => {
                 if (!!response && response.length > 0) {
                     console.log(response.length);
-                    
+
                     loading.value = false
                     throw 'Користувач с таким ім\'ям вже існує'
                 }
@@ -112,6 +115,7 @@ export const useAuthStore = defineStore("user", () => {
         localStorage.removeItem('authToken');
         isAuthenticated.value = false;
         state.value = null
+        bookStore.state = []
     }
 
     return {

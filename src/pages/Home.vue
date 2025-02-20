@@ -53,8 +53,11 @@ const books = computed(() => {
                     :book="book"
                 />
             </ul>
-            <span v-else class="text-lg text-red-500 font-medium">
+            <span v-else-if="!!searchValue && store.state.length" class="text-lg text-red-500 font-medium">
                 За запитом "{{ searchValue }}" не було знайдено ні однієї книги
+            </span>
+            <span v-else class="text-lg text-red-500 font-medium">
+                Список книг порожній! Додайте нову книгу
             </span>
         </div>
     </section>
