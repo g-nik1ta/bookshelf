@@ -24,6 +24,10 @@ defineProps({
         type: Boolean,
         default: false,
     },
+    error: {
+        type: String,
+        default: null,
+    },
 });
 
 const value = defineModel({
@@ -59,6 +63,9 @@ const value = defineModel({
             :placeholder="placeholder"
             :required="required"
         />
+        <span v-if="error" class="px-2 text-red-500 text-xs font-medium">
+            {{error}}
+        </span>
     </div>
 </template>
 

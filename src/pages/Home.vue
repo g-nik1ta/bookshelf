@@ -46,13 +46,16 @@ const books = computed(() => {
             >
                 <loader w="32px" h="32px" bw="3px" />
             </div>
-            <ul v-else class="space-y-4">
+            <ul v-else-if="books.length" class="space-y-4">
                 <book-item
                     v-for="book in books"
                     :key="book.id"
                     :book="book"
                 />
             </ul>
+            <span v-else class="text-lg text-red-500 font-medium">
+                За запитом "{{ searchValue }}" не було знайдено ні однієї книги
+            </span>
         </div>
     </section>
 </template>

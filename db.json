@@ -21,5 +21,19 @@
       "year": 2020,
       "description": "description"
     }
+  ],
+  "users": [
+    {
+      "id": "a28a",
+      "username": "nikita",
+      "password": "testtest",
+      "confirmPassword": "testtest"
+    },
+    {
+      "id": "162b",
+      "username": "test",
+      "password": "testtest",
+      "confirmPassword": "testtest"
+    }
   ]
 }
