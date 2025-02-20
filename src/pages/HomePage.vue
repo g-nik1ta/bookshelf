@@ -1,9 +1,28 @@
 <script setup>
 import BookItem from "@/components/BookItem.vue";
 import Loader from "@/components/UComponents/Loader.vue";
+import SearchBox from "@/components/UComponents/SearchBox.vue";
 import { useBookStore } from "@/store/book";
+import { computed, ref } from "vue";
 
 const store = useBookStore();
+
+const searchValue = ref();
+const searchKeys = ['title', 'author', 'year']
+
+const books = computed(() => {
+    const searchQuery = searchValue.value?.trim().toLowerCase();
+    if (!searchQuery) return store.state
+    
+    return store.state.filter((item) => {
+        return searchKeys.some((key) => {
+            if (item[key]) {
+                return String(item[key]).toLowerCase().includes(searchQuery);
+            }
+            return false;
+        });
+    });
+});
 </script>
 
 <template>
@@ -20,6 +39,7 @@ const store = useBookStore();
             </router-link>
         </div>
         <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+            <search-box class="mb-6" v-model="searchValue" />
             <div
                 v-if="store.loading"
                 class="flex justify-center items-center h-32"
@@ -28,7 +48,7 @@ const store = useBookStore();
             </div>
             <ul v-else class="space-y-4">
                 <book-item
-                    v-for="book in store.state"
+                    v-for="book in books"
                     :key="book.id"
                     :book="book"
                 />
