@@ -1,0 +1,50 @@
+{
+  "books": [
+    {
+      "id": "1",
+      "title": "Книга 1",
+      "author": "Автор 1",
+      "year": 2021,
+      "user_id": "a28a",
+      "description": "Опис книги 1"
+    },
+    {
+      "id": "2",
+      "title": "Книга 2",
+      "author": "Автор 2",
+      "year": 2022,
+      "user_id": "a28a",
+      "description": "Опис книги 2"
+    },
+    {
+      "id": "2242",
+      "title": "test book name",
+      "author": "Nikita 123",
+      "year": 2020,
+      "user_id": "a28a",
+      "description": "description"
+    },
+    {
+      "id": "23c5",
+      "title": "My book",
+      "author": "test user",
+      "year": 2025,
+      "description": "sdoindsa nda\n\n",
+      "user_id": "162b"
+    }
+  ],
+  "users": [
+    {
+      "id": "a28a",
+      "username": "nikita",
+      "password": "testtest",
+      "confirmPassword": "testtest"
+    },
+    {
+      "id": "162b",
+      "username": "test",
+      "password": "testtest",
+      "confirmPassword": "testtest"
+    }
+  ]
+}
