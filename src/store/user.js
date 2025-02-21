@@ -3,9 +3,12 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 import { useBookStore } from "./book";
 
+const server = 'https://bookshelf-hzhh.onrender.com/'
+// const server = 'http://localhost:3000/'
+
 const API = {
-    get: 'http://localhost:3000/users',
-    post: 'http://localhost:3000/users',
+    get: server + 'users',
+    post: server + 'users',
 }
 
 export const useAuthStore = defineStore("user", () => {

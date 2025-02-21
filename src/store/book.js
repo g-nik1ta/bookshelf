@@ -4,11 +4,14 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 import { useAuthStore } from "./user";
 
+const server = 'https://bookshelf-hzhh.onrender.com/'
+// const server = 'http://localhost:3000/'
+
 const API = {
-    get: 'http://localhost:3000/books',
-    post: 'http://localhost:3000/books',
-    put: 'http://localhost:3000/books',
-    delete: 'http://localhost:3000/books',
+    get: server + 'books',
+    post: server + 'books',
+    put: server + 'books',
+    delete: server + 'books',
 }
 
 // const wait = () => {
@@ -67,10 +70,7 @@ export const useBookStore = defineStore("book", () => {
         return await request.put(
             `${API.put}/${data.id}`,
             data,
-            (response) => {
-                console.log(response);
-
-                // state.value = [...state.value, response]
+            () => {
                 loading.value = false
             },
             (response) => {
